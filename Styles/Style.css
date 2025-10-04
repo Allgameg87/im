@@ -1,10 +1,11 @@
 .bar {
-  font-family: Verdana;
-  text-align: center;
-  font-weight: normal;
+    font-family: Verdana;
+    text-align: center;
+    font-weight: normal;
 }
-.Susi img { 
-  width: 2℅;
-  text-align: center;
+.susi img { 
+    width: 2℅;
 }
-#address { tex-align: right; }
+address {
+    text-align: right;
+}
