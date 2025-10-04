@@ -3,5 +3,8 @@
   text-align: center;
   font-weight: normal;
 }
-.Susi img { width: 2℅; }
+.Susi img { 
+  width: 2℅;
+  text-align: center;
+}
 address { tex-align: right; }
