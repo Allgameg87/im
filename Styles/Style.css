@@ -5,6 +5,7 @@
 }
 .img1 img { 
     width: 100px;
+    text-align: center;
 }
 address {
     text-align: right;
