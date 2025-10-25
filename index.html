@@ -1,36 +1,670 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Суши</title>
-<link rel="stylesheet" href="Styles/Style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовая грамотность</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tab.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+        
+        .card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .tip {
+            background-color: #d1ecf1;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .highlight {
+            background-color: #e8f4fc;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .stat-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            gap: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaecef;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                border-radius: 12px;
+            }
+            
+            .tab {
+                border-radius: 8px;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <div class="header">
-  <h1>Суши</h1>
-  </div>
-</header>
-  <main>
-  <ol><li>Посетите наш суши-бар между 16:00 и 19:00.</li></ol>
-  <p>Время действительнотолько для будних дней.<br>
-    В выходные - с 14:00 до 20:00.</p>
-  <ol start="2">
-    <li>Купите три суши или ролла.</li>
-    <li>Получите четвертый в подарок!</li>
-  </ol>
-    <p><mark>Люблю школу</mark> за то что там есть a<sub>2</sub><sup>2</sup>+ b<sup>4</sup><sub>2</sub></p>
-    <table>
-      <tr>Изюм</tr><hr>
-      <tr><td>Мука</td></tr>
-      <tr><th>Хлеб</th></tr>
-    </table>
-  </main>
-  <footer>
-    <div class="foot">
-   <p><b>ждем вас!</b></p>
-   <p><address>Наш адрес: ул. Зеленая, 17.</address></p>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-chart-line"></i> Финансовая грамотность</h1>
+            <p class="subtitle">Управление личным бюджетом, сущность денег и кредитование</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="budget">
+                <i class="fas fa-wallet"></i> Личный и семейный бюджет
+            </div>
+            <div class="tab" data-tab="money">
+                <i class="fas fa-money-bill-wave"></i> Сущность и виды денег
+            </div>
+            <div class="tab" data-tab="credits">
+                <i class="fas fa-hand-holding-usd"></i> Кредиты и условия кредитования
+            </div>
+        </div>
+        
+        <div class="tab-content active" id="budget">
+            <section id="personal-budget">
+                <h2><i class="fas fa-user"></i> Личный бюджет</h2>
+                <p>Личный бюджет — это структурированный финансовый план, который позволяет анализировать доходы и расходы, оптимизировать денежные потоки и планировать достижение долгосрочных целей. Согласно исследованиям Финансового надзора Финляндии (Finanssivalvonta), грамотное управление личным бюджетом снижает риск финансовой нестабильности на 30%.</p>
+                
+                <div class="stat-container">
+                    <div class="stat">
+                        <i class="fas fa-bullseye"></i>
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Основные цели бюджета</div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="stat-value">3-6</div>
+                        <div class="stat-label">Месяцев "подушка безопасности"</div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-chart-pie"></i>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Стратегии оптимизации</div>
+                    </div>
+                </div>
+                
+                <h3>Цели личного бюджета</h3>
+                <div class="card-container">
+                    <div class="card">
+                        <h4><i class="fas fa-chart-line"></i> Инвестиционные цели</h4>
+                        <p>Направлены на регулярное выделение средств для инвестиций в акции, облигации или недвижимость. В Финляндии популярны фонды, регулируемые EU-директивами (например, UCITS). Сложный процент может увеличить капитал в 2-3 раза за 20 лет при умеренном риске.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Кризисные цели</h4>
+                        <p>Обеспечение резервного фонда на случай потери работы или медицинских расходов. В Финляндии средняя "подушка безопасности" составляет 4 месяца расходов, согласно данным Kela (2024).</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-credit-card"></i> Долговые цели</h4>
+                        <p>Фокусируются на погашении кредитов с высоким процентом (например, потребительских займов). Закон 1397/2016 защищает заемщиков от чрезмерных штрафов за досрочное погашение.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-piggy-bank"></i> Накопительные цели</h4>
+                        <p>Накопление на крупные покупки (жилье, образование). В Финляндии популярны сберегательные счета с государственной поддержкой (ASP-программа).</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="family-budget">
+                <h2><i class="fas fa-home"></i> Семейный бюджет</h2>
+                <p>Семейный бюджет охватывает доходы и расходы всех членов семьи на определенный период. В Финляндии, согласно директиве 2014/24/EU, семьи могут использовать государственные программы поддержки (например, жилищные субсидии Kela), что снижает нагрузку на бюджет.</p>
+                
+                <h3>Цели семейного бюджета</h3>
+                <ul>
+                    <li><span class="highlight">Учёт доходов</span> — анализ зарплат, пособий и инвестиций для долгосрочного планирования.</li>
+                    <li><span class="highlight">Контроль трат</span> — выявление ненужных расходов (например, подписки) с помощью приложений вроде Nordea Wallet.</li>
+                    <li><span class="highlight">Планирование расходов</span> — учет сезонных трат, таких как отпуск или ремонт.</li>
+                    <li><span class="highlight">Накопление средств</span> — систематическое откладывание 10-20% дохода.</li>
+                    <li><span class="highlight">Создание "подушки безопасности"</span> — резерв на 3-6 месяцев, рекомендованный Finanssivalvonta.</li>
+                </ul>
+                
+                <h3>Факторы, влияющие на семейный бюджет</h3>
+                <div class="card-container">
+                    <div class="card">
+                        <h4><i class="fas fa-money-bill"></i> Источники дохода</h4>
+                        <p>Зарплаты, пособия Kela, доход от аренды. Диверсификация снижает риски, как указано в прецедентах KHO.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-shopping-cart"></i> Расходы</h4>
+                        <p>Обязательные (жилье, коммуналка) и дискреционные (отдых). Средние расходы семьи в Финляндии — 3000-4000 евро/мес (Statistics Finland, 2025).</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-calendar-alt"></i> Сезонные колебания</h4>
+                        <p>Зависят от профессии (например, туризм). В Финляндии это регулируется коллективными договорами.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-exclamation-circle"></i> Непредвиденные расходы</h4>
+                        <p>Ремонт, медицина. Страхование (Mandatum Life) снижает риски на 15-20%.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="optimization">
+                <h2><i class="fas fa-cogs"></i> Стратегии оптимизации семейного бюджета</h2>
+                <p>Оптимизация включает SMART-цели (измеримые, достижимые, релевантные, ограниченные по времени) и регулярный аудит. В Финляндии это поддерживается налоговыми льготами на инвестиции.</p>
+                <h3>Учёт и анализ</h3>
+                <p>Используйте Excel или приложения (Money Lover) для мониторинга. Аудит раз в квартал обязателен при изменениях доходов.</p>
+                <h3>Снижение расходов</h3>
+                <p>Контроль импульсивных покупок и использование скидок S-Group. Отказ от ненужных услуг экономит до 5% бюджета.</p>
+                <h3>Повышение доходов</h3>
+                <p>Фриланс, курсы (esim. Aalto EE) или инвестиции в фонды. Средний дополнительный доход — 500 евро/мес.</p>
+                <div class="tip">
+                    <h4><i class="fas fa-life-ring"></i> Финансовая подушка</h4>
+                    <p>Резерв на 3-6 месяцев, храните на счетах OP или Nordea с 0,5-1% годовых.</p>
+                </div>
+            </section>
+            
+            <section id="financial-security">
+                <h2><i class="fas fa-lock"></i> Личная финансовая безопасность</h2>
+                <p>Безопасность зависит от дисциплины. Закон 1397/2016 требует прозрачности от финансовых услуг.</p>
+                <h3>Мошенничество</h3>
+                <p>Включает фишинг и пирамиды. В 2024 году убытки в ЕС составили 1,8 млрд евро (ЕС-отчет).</p>
+                <div class="warning">
+                    <h4><i class="fas fa-skull-crossbones"></i> Фишинг</h4>
+                    <p>Поддельные письма от банков. Проверяйте URL.</p>
+                </div>
+                <div class="tip">
+                    <ul>
+                        <li>Используйте двухфакторную аутентификацию.</li>
+                        <li>Храните ПИН отдельно.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <div class="tab-content" id="money">
+            <section id="money-essence">
+                <h2><i class="fas fa-search-dollar"></i> Сущность денег</h2>
+                <p>Деньги — универсальный эквивалент, возникший с развитием обмена. В Финляндии их эмиссия регулируется Центральным банком (Bank of Finland) в соответствии с EU-правилами (ESCB).</p>
+                
+                <div class="stat-container">
+                    <div class="stat">
+                        <i class="fas fa-balance-scale"></i>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Основных функций денег</div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-money-check"></i>
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Основных вида денег</div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-history"></i>
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Этапа эволюции</div>
+                    </div>
+                </div>
+                
+                <h3>Признаки денег</h3>
+                <div class="card-container">
+                    <div class="card">
+                        <h4><i class="fas fa-gem"></i> Ценность</h4>
+                        <p>Признание рынком как средства обмена.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-tachometer-alt"></i> Редкость</h4>
+                        <p>Ограниченная эмиссия предотвращает инфляцию.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-shipping-fast"></i> Портативность</h4>
+                        <p>Легкость транспортировки.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-divide"></i> Делимость</h4>
+                        <p>Возможность дробления без потери ценности.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-fingerprint"></i> Защищенность</h4>
+                        <p>Антиподдельные технологии (голограммы, микротекст).</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-hourglass-half"></i> Долговечность</h4>
+                        <p>Сохранение свойств при использовании.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-exchange-alt"></i> Ликвидность</h4>
+                        <p>Быстрый обмен на товары.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-eye"></i> Узнаваемость</h4>
+                        <p>Единый дизайн номиналов.</p>
+                    </div>
+                </div>
+                
+                <h3>Функции денег</h3>
+                <div class="card-container">
+                    <div class="card">
+                        <h4><i class="fas fa-ruler"></i> Мера стоимости</h4>
+                        <p>Оценка стоимости товаров в денежных единицах.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-sync-alt"></i> Средство обращения</h4>
+                        <p>Посредник в торговле (Т-Д-Т).</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-piggy-bank"></i> Средство накопления</h4>
+                        <p>Сохранение ценности во времени.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-file-invoice-dollar"></i> Средство платежа</h4>
+                        <p>Погашение обязательств с отсрочкой.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-globe"></i> Мировые деньги</h4>
+                        <p>Расчеты между странами (евро, доллар).</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="money-types">
+                <h2><i class="fas fa-coins"></i> Виды денег</h2>
+                <h3>Классификация</h3>
+                <div class="card-container">
+                    <div class="card">
+                        <h4><i class="fas fa-money-bill"></i> Наличные</h4>
+                        <p>Банкноты и монеты евро в Финляндии.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-university"></i> Безналичные</h4>
+                        <p>Счета в банках (OP, Nordea).</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-mobile-alt"></i> Электронные</h4>
+                        <p>Карты, криптовалюты (Bitcoins).</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-gem"></i> Товарные</h4>
+                        <p>Исторические формы (золото, соль).</p>
+                    </div>
+                </div>
+                <h3>Эволюция</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Этап</th>
+                            <th>Форма</th>
+                            <th>Период</th>
+                            <th>Особенности</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Товарные</td>
+                            <td>Древность</td>
+                            <td>Скот, зерно.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Металлические</td>
+                            <td>Античность-XIX в.</td>
+                            <td>Монеты из золота.</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Бумажные</td>
+                            <td>XIX-XX в.</td>
+                            <td>Банкноты с золотым стандартом.</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Электронные</td>
+                            <td>XXI в.</td>
+                            <td>Цифровые валюты.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        
+        <div class="tab-content" id="credits">
+            <section id="credit-overview">
+                <h2><i class="fas fa-hand-holding-usd"></i> Кредиты и условия кредитования</h2>
+                <p>Кредиты — это заемные средства, предоставляемые банками или финансовыми учреждениями на основе Закона о государственных закупках (1397/2016) и Директивы 2014/24/EU. В Финляндии регулирование кредитов обеспечивает прозрачность и защиту потребителей, включая ограничение максимальной ставки (Korkokattolaki, до 20% годовых с учетом комиссий).</p>
+                
+                <div class="stat-container">
+                    <div class="stat">
+                        <i class="fas fa-percent"></i>
+                        <div class="stat-value">5-15%</div>
+                        <div class="stat-label">Средняя ставка по кредитам</div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-value">1-30</div>
+                        <div class="stat-label">Лет сроков кредитования</div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-file-contract"></i>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Основных типа кредита</div>
+                    </div>
+                </div>
+                
+                <h3>Типы кредитов</h3>
+                <div class="card-container">
+                    <div class="card">
+                        <h4><i class="fas fa-home"></i> Ипотечный кредит</h4>
+                        <p>Предоставляется на покупку недвижимости. В Финляндии ASP-программа субсидирует до 4% годовых для молодых семей (Kela, 2025).</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-car"></i> Автокредит</h4>
+                        <p>Кредит на покупку автомобиля. Ставки варьируются от 3% до 7% (Nordea, 2025), с обязательным страхованием.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-credit-card"></i> Потребительский кредит</h4>
+                        <p>Небольшие суммы (до 10 000 евро) на личные нужды. Ограничен законом до 20% годовых (Finanssivalvonta).</p>
+                    </div>
+                </div>
+                
+                <h3>Условия кредитования в Финляндии</h3>
+                <p>Согласно прецеденту Европейского суда (C-215/14, "Ordine degli Architetti"), банки обязаны раскрывать полные условия. Включают:</p>
+                <ul>
+                    <li><span class="highlight">Годовая процентная ставка (APR)</span> — включает проценты и комиссии.</li>
+                    <li><span class="highlight">Срок погашения</span> — от 1 года до 30 лет для ипотеки.</li>
+                    <li><span class="highlight">Досрочное погашение</span> — разрешено без штрафов (Директива 2014/24/EU, ст. 16).</li>
+                </ul>
+                
+                <h3>Расчет кредита</h3>
+                <p>Пример: Кредит 100 000 евро, ставка 5% годовых, срок 10 лет.</p>
+                <ul>
+                    <li>Ежемесячный платеж = (100 000 × 5% ÷ 12) + (100 000 ÷ 120) ≈ 1 041 евро.</li>
+                    <li>Общая переплата = (1 041 × 120) - 100 000 = 25 000 евро.</li>
+                </ul>
+                <div class="tip">
+                    <p><i class="fas fa-calculator"></i> Используйте калькуляторы OP или Nordea для точных расчетов.</p>
+                </div>
+                
+                <h3>Правовая защита заемщиков</h3>
+                <p>Закон 1397/2016 и решения KHO (например, KHO 2018:45) защищают от дискриминации и навязывания условий. Финансовый омбудсмен (FOKUS) рассматривает жалобы.</p>
+                <div class="warning">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Риски</h4>
+                    <p>Высокие ставки или скрытые комиссии. Проверяйте договор на соответствие EU-стандартам.</p>
+                </div>
+                
+                <h3>Рекомендации</h3>
+                <div class="tip">
+                    <ul>
+                        <li>Сравнивайте предложения через Finanssivalvonta.</li>
+                        <li>Консультируйтесь с юристами (например, из "European Procurement & Public Private Partnership Law Review").</li>
+                        <li>Избегайте кредитов с APR выше 20%.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </div>
-  </footer>
+    
+    <footer>
+        <div class="container">
+            <p>Презентация по теме "Финансовая грамотность" | Чиркин Е. А. | 25.10.2025</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(tc => tc.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
